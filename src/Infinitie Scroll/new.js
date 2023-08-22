@@ -88,7 +88,7 @@ const ImgScroll = () => {
         <>
        
             <div className="search-bar sticky-top">
-                <h1 className='gradient'>Infinite Image Scroll</h1>
+                <h1 className='gradient'>Infinite Images Scroll</h1>
                 <div>
                 <Tooltip title="Search the Image">
                     <input
