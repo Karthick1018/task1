@@ -1,0 +1,34 @@
+.hover:hover {
+    transform: scale(1.02);
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.564);
+    padding: 5px;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.search-bar button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #1e5bbd;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.gradient {
+    font-size: 50px;
+    background: -webkit-linear-gradient(red, yellow, blue, black);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

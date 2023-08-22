@@ -1,0 +1,19 @@
+h1 {
+    text-align: center;
+    color: blue;
+    
+}
+
+.Welcome {
+    background-color: rgb(138, 125, 125);
+    min-height: 15rem;
+    border-top-right-radius: 100%;
+
+}
+.bird{
+    display: grid;
+    place-items:center;
+}
+.maping legend{
+    background-color: aqua;
+}
