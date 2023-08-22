@@ -1,20 +1,20 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Avatar, Fab, Paper, Tooltip, Typography } from "@mui/material";
 import UpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import { MoonLoader } from 'react-spinners'
-import './style.css'
+import { MoonLoader } from 'react-spinners';
+import './style.css';
 
 const ImgScroll = () => {
     const [img, setImg] = useState([]);
-    const [page, setPage] = useState(5);
+    const [page, setPage] = useState(1);
     const [visible, setVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredImg, setFilteredImg] = useState([]);
-
+    const [searching, setSearching] = useState(false);
+    const [fetchingData, setFetchingData] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -30,6 +30,7 @@ const ImgScroll = () => {
         } catch (error) {
             console.error('Error fetching image URLs:', error);
         }
+        setFetchingData(false);
     };
 
     useEffect(() => {
@@ -54,7 +55,8 @@ const ImgScroll = () => {
     }, [searchQuery, img]);
 
     const handleScroll = () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        if (!fetchingData && window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+            setFetchingData(true);
             setPage(prevPage => prevPage + 1);
         }
     };
@@ -86,24 +88,24 @@ const ImgScroll = () => {
 
     return (
         <>
-       
+
             <div className="search-bar sticky-top">
                 <h1 className='gradient'>Infinite Images Scroll</h1>
                 <div>
-                <Tooltip title="Search the Image">
-                    <input
-                        type="text"
-                        placeholder="Search for images..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                       </Tooltip>
+                    <Tooltip title="Search the Image">
+                        <input
+                            type="text"
+                            placeholder="Search for images..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </Tooltip>
                     <Tooltip title="search">
-                    <button onClick={() => setPage(5)}>Search</button>
+                        <button onClick={() => { setSearching(false); setPage(1) }}>Search</button>
                     </Tooltip>
                 </div>
             </div>
-         
+
             <div className="container-fluid bg_color_div">
                 <div className="row justify-content-around">
                     {filteredImg.length > 0 ? (
@@ -139,13 +141,16 @@ const ImgScroll = () => {
                 >
                     <UpIcon sx={{ fontSize: 30, fontWeight: 'bolder', color: 'red' }} />
                 </Fab>
-            </div>
-            <div style={{ display: 'grid', placeItems: 'center' }}>
-                <MoonLoader color="#1e5bbd" />
+                {!searching && fetchingData && (
+                    <div style={{ display: 'grid', placeItems: 'center' }}>
+                        <MoonLoader color="#1e5bbd" />
+                    </div>
+                )}
             </div>
         </>
     );
 };
 
 export default ImgScroll;
+
 
